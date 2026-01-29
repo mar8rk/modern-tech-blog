@@ -1,4 +1,4 @@
-baseURL = 'https://modern-tech-blog.netlify.app/'
+baseURL = 'https://mar8rk-aws-claude.netlify.app/'
 languageCode = 'en-us'
 title = 'Modern Tech Blog'
 theme = 'PaperMod'
