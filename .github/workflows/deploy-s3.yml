@@ -1,0 +1,84 @@
+name: Deploy to AWS S3 + CloudFront
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:  # Allow manual trigger
+
+env:
+  HUGO_VERSION: '0.146.0'
+  S3_BUCKET: mar8rk-tech-blog
+  AWS_REGION: us-east-1
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        submodules: true
+        fetch-depth: 0
+
+    - name: Setup Hugo
+      uses: peaceiris/actions-hugo@v2
+      with:
+        hugo-version: ${{ env.HUGO_VERSION }}
+        extended: true
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Build Hugo site
+      run: |
+        cd project/modern-tech-blog
+        hugo --minify
+        echo "Build completed successfully!"
+        ls -la public/
+
+    - name: Deploy to S3
+      run: |
+        # Sync static assets with long cache
+        aws s3 sync project/modern-tech-blog/public/ s3://${{ env.S3_BUCKET }} \
+          --delete \
+          --cache-control "public, max-age=31536000, immutable" \
+          --exclude "*.html" \
+          --exclude "*.xml" \
+          --exclude "*.json"
+
+        # Sync HTML/XML/JSON with short cache
+        aws s3 sync project/modern-tech-blog/public/ s3://${{ env.S3_BUCKET }} \
+          --delete \
+          --cache-control "public, max-age=300" \
+          --exclude "*" \
+          --include "*.html" \
+          --include "*.xml" \
+          --include "*.json"
+
+        echo "✅ Files synced to S3 bucket: ${{ env.S3_BUCKET }}"
+
+    - name: Invalidate CloudFront cache
+      if: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+      run: |
+        aws cloudfront create-invalidation \
+          --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+          --paths "/*"
+        echo "✅ CloudFront cache invalidated"
+
+    - name: Get deployment info
+      run: |
+        echo "🎉 Deployment completed successfully!"
+        echo "📊 S3 bucket contents:"
+        aws s3 ls s3://${{ env.S3_BUCKET }} --recursive --human-readable --summarize | tail -2
+
+        if [ -n "${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}" ]; then
+          echo "⚡ CloudFront distribution updated"
+          echo "🌐 Site URL: https://$(aws cloudfront get-distribution --id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --query 'Distribution.DomainName' --output text)"
+        else
+          echo "🌐 S3 Website URL: http://${{ env.S3_BUCKET }}.s3-website-${{ env.AWS_REGION }}.amazonaws.com"
+        fi
