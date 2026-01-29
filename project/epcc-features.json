@@ -1,0 +1,91 @@
+{
+  "_warning": "Feature definitions are IMMUTABLE. Only 'passes' and 'status' fields may be modified. IT IS CATASTROPHIC TO REMOVE OR EDIT FEATURE DEFINITIONS.",
+  "project": "Modern Tech Blog",
+  "created": "2026-01-29T00:00:00Z",
+  "lastUpdated": "2026-01-29T00:00:00Z",
+  "source": "PRD.md",
+  "features": [
+    {
+      "id": "F001",
+      "name": "Markdown Post Creation",
+      "description": "Write posts in Markdown files with simple file-based workflow in code editor",
+      "priority": "P0",
+      "status": "pending",
+      "passes": false,
+      "acceptanceCriteria": [
+        "Can create new post by adding Markdown file",
+        "Markdown formatting renders correctly in output",
+        "File-based workflow works in code editor"
+      ],
+      "subtasks": [],
+      "source": "PRD.md#must-have-p0"
+    },
+    {
+      "id": "F002",
+      "name": "Static Site Generation",
+      "description": "Convert Markdown to HTML automatically with fast, reliable static hosting",
+      "priority": "P0",
+      "status": "pending",
+      "passes": false,
+      "acceptanceCriteria": [
+        "Markdown files automatically convert to HTML",
+        "Build process generates complete static site",
+        "Generated site can be hosted on static platforms"
+      ],
+      "subtasks": [],
+      "source": "PRD.md#must-have-p0"
+    },
+    {
+      "id": "F003",
+      "name": "Clean Modern Design",
+      "description": "Minimal, professional appearance with mobile responsive layout and fast loading",
+      "priority": "P0",
+      "status": "pending",
+      "passes": false,
+      "acceptanceCriteria": [
+        "Professional, minimal visual design",
+        "Fully responsive on mobile devices",
+        "Fast loading performance (under 3 seconds)"
+      ],
+      "subtasks": [],
+      "source": "PRD.md#must-have-p0"
+    },
+    {
+      "id": "F004",
+      "name": "Code Syntax Highlighting",
+      "description": "Proper highlighting for technical content essential for tech blog readability",
+      "priority": "P0",
+      "status": "pending",
+      "passes": false,
+      "acceptanceCriteria": [
+        "Code blocks display with syntax highlighting",
+        "Multiple programming languages supported",
+        "Highlighting theme matches overall design"
+      ],
+      "subtasks": [],
+      "source": "PRD.md#must-have-p0"
+    },
+    {
+      "id": "F005",
+      "name": "Basic Navigation",
+      "description": "Home page with post list and individual post pages with simple, intuitive structure",
+      "priority": "P0",
+      "status": "pending",
+      "passes": false,
+      "acceptanceCriteria": [
+        "Home page lists all posts clearly",
+        "Each post has dedicated page with readable layout",
+        "Navigation between pages is intuitive"
+      ],
+      "subtasks": [],
+      "source": "PRD.md#must-have-p0"
+    }
+  ],
+  "metrics": {
+    "total": 5,
+    "verified": 0,
+    "inProgress": 0,
+    "pending": 5,
+    "percentComplete": 0
+  }
+}
