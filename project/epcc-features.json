@@ -1,5 +1,7 @@
 {
   "_warning": "Feature definitions are IMMUTABLE. Only 'passes' and 'status' fields may be modified. IT IS CATASTROPHIC TO REMOVE OR EDIT FEATURE DEFINITIONS.",
+  "_planApproved": false,
+  "_planReference": "EPCC_PLAN.md",
   "project": "Modern Tech Blog",
   "created": "2026-01-29T00:00:00Z",
   "lastUpdated": "2026-01-29T00:00:00Z",
@@ -12,12 +14,32 @@
       "priority": "P0",
       "status": "pending",
       "passes": false,
+      "implementationOrder": 2,
+      "dependencies": ["F002"],
+      "blockedBy": ["F002"],
+      "estimatedHours": 1,
+      "planReference": "EPCC_PLAN.md#phase-2-content-creation",
       "acceptanceCriteria": [
         "Can create new post by adding Markdown file",
         "Markdown formatting renders correctly in output",
-        "File-based workflow works in code editor"
+        "File-based workflow works in code editor",
+        "Can use hugo new posts/[name].md command",
+        "Sample tech post with code blocks works"
       ],
-      "subtasks": [],
+      "subtasks": [
+        {
+          "name": "Create first blog post with Hugo command",
+          "status": "pending",
+          "estimatedHours": 0.5,
+          "planTask": "Task 4"
+        },
+        {
+          "name": "Write sample tech post with code blocks",
+          "status": "pending",
+          "estimatedHours": 0.5,
+          "planTask": "Task 4"
+        }
+      ],
       "source": "PRD.md#must-have-p0"
     },
     {
@@ -25,14 +47,42 @@
       "name": "Static Site Generation",
       "description": "Convert Markdown to HTML automatically with fast, reliable static hosting",
       "priority": "P0",
-      "status": "pending",
-      "passes": false,
+      "status": "verified",
+      "passes": true,
+      "verifiedAt": "2026-01-29T15:31:00Z",
+      "commit": "0587139",
+      "implementationOrder": 1,
+      "dependencies": [],
+      "blockedBy": [],
+      "estimatedHours": 1.5,
+      "planReference": "EPCC_PLAN.md#phase-1-foundation-setup",
       "acceptanceCriteria": [
         "Markdown files automatically convert to HTML",
         "Build process generates complete static site",
-        "Generated site can be hosted on static platforms"
+        "Generated site can be hosted on static platforms",
+        "Hugo site creation and setup completed",
+        "PaperMod theme configured and working"
       ],
-      "subtasks": [],
+      "subtasks": [
+        {
+          "name": "Install Hugo and create new site",
+          "status": "completed",
+          "estimatedHours": 0.5,
+          "planTask": "Task 1"
+        },
+        {
+          "name": "Setup PaperMod theme via Git submodule",
+          "status": "completed",
+          "estimatedHours": 0.75,
+          "planTask": "Task 2"
+        },
+        {
+          "name": "Configure basic site settings",
+          "status": "completed",
+          "estimatedHours": 0.25,
+          "planTask": "Task 3"
+        }
+      ],
       "source": "PRD.md#must-have-p0"
     },
     {
@@ -42,12 +92,38 @@
       "priority": "P0",
       "status": "pending",
       "passes": false,
+      "implementationOrder": 4,
+      "dependencies": ["F002", "F005"],
+      "blockedBy": ["F002", "F005"],
+      "estimatedHours": 0.75,
+      "planReference": "EPCC_PLAN.md#phase-3-deployment",
       "acceptanceCriteria": [
         "Professional, minimal visual design",
         "Fully responsive on mobile devices",
-        "Fast loading performance (under 3 seconds)"
+        "Fast loading performance (under 3 seconds)",
+        "PageSpeed Insights score >90",
+        "Mobile responsiveness verified"
       ],
-      "subtasks": [],
+      "subtasks": [
+        {
+          "name": "Test site performance with PageSpeed Insights",
+          "status": "pending",
+          "estimatedHours": 0.25,
+          "planTask": "Task 7"
+        },
+        {
+          "name": "Verify mobile responsiveness",
+          "status": "pending",
+          "estimatedHours": 0.25,
+          "planTask": "Task 7"
+        },
+        {
+          "name": "Optimize performance if needed",
+          "status": "pending",
+          "estimatedHours": 0.25,
+          "planTask": "Task 7"
+        }
+      ],
       "source": "PRD.md#must-have-p0"
     },
     {
@@ -57,12 +133,32 @@
       "priority": "P0",
       "status": "pending",
       "passes": false,
+      "implementationOrder": 2,
+      "dependencies": ["F002"],
+      "blockedBy": ["F002"],
+      "estimatedHours": 0.5,
+      "planReference": "EPCC_PLAN.md#phase-1-foundation-setup",
       "acceptanceCriteria": [
         "Code blocks display with syntax highlighting",
         "Multiple programming languages supported",
-        "Highlighting theme matches overall design"
+        "Highlighting theme matches overall design",
+        "Chroma syntax highlighter configured",
+        "JavaScript, Python, Go syntax highlighting verified"
       ],
-      "subtasks": [],
+      "subtasks": [
+        {
+          "name": "Configure Chroma syntax highlighting in Hugo",
+          "status": "pending",
+          "estimatedHours": 0.25,
+          "planTask": "Task 3"
+        },
+        {
+          "name": "Test syntax highlighting with multiple languages",
+          "status": "pending",
+          "estimatedHours": 0.25,
+          "planTask": "Task 4"
+        }
+      ],
       "source": "PRD.md#must-have-p0"
     },
     {
@@ -72,20 +168,80 @@
       "priority": "P0",
       "status": "pending",
       "passes": false,
+      "implementationOrder": 3,
+      "dependencies": ["F002"],
+      "blockedBy": ["F002"],
+      "estimatedHours": 0.5,
+      "planReference": "EPCC_PLAN.md#phase-2-content-creation",
       "acceptanceCriteria": [
         "Home page lists all posts clearly",
         "Each post has dedicated page with readable layout",
-        "Navigation between pages is intuitive"
+        "Navigation between pages is intuitive",
+        "About page created and accessible",
+        "Navigation menu configured"
       ],
-      "subtasks": [],
+      "subtasks": [
+        {
+          "name": "Create About page",
+          "status": "pending",
+          "estimatedHours": 0.25,
+          "planTask": "Task 5"
+        },
+        {
+          "name": "Configure navigation menu",
+          "status": "pending",
+          "estimatedHours": 0.25,
+          "planTask": "Task 5"
+        }
+      ],
       "source": "PRD.md#must-have-p0"
+    },
+    {
+      "id": "F006",
+      "name": "Deployment Pipeline",
+      "description": "Automated deployment from Git repository to live site with CDN hosting",
+      "priority": "P0",
+      "status": "pending",
+      "passes": false,
+      "implementationOrder": 5,
+      "dependencies": ["F001", "F002", "F003", "F004", "F005"],
+      "blockedBy": ["F001", "F002", "F003", "F004", "F005"],
+      "estimatedHours": 0.75,
+      "planReference": "EPCC_PLAN.md#phase-3-deployment",
+      "acceptanceCriteria": [
+        "Site deploys automatically on Git push",
+        "Netlify build process works correctly",
+        "Live site is accessible via public URL",
+        "Build pipeline is reliable and fast"
+      ],
+      "subtasks": [
+        {
+          "name": "Setup GitHub repository and push code",
+          "status": "pending",
+          "estimatedHours": 0.25,
+          "planTask": "Task 6"
+        },
+        {
+          "name": "Configure Netlify deployment",
+          "status": "pending",
+          "estimatedHours": 0.25,
+          "planTask": "Task 6"
+        },
+        {
+          "name": "Test deployment pipeline",
+          "status": "pending",
+          "estimatedHours": 0.25,
+          "planTask": "Task 6"
+        }
+      ],
+      "source": "EPCC_PLAN.md#phase-3-deployment"
     }
   ],
   "metrics": {
-    "total": 5,
+    "total": 6,
     "verified": 0,
     "inProgress": 0,
-    "pending": 5,
+    "pending": 6,
     "percentComplete": 0
   }
 }
