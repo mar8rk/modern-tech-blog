@@ -21,7 +21,7 @@ rm -rf public/
 
 # Build the site
 echo "🔨 Building site..."
-hugo --minify --verbose
+hugo --minify
 
 # Check build output
 if [ ! -d "public" ]; then
