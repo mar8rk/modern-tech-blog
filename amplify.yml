@@ -1,0 +1,21 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        # Navigate to Hugo site directory
+        - cd project/modern-tech-blog
+        # Initialize theme submodule if needed
+        - git submodule update --init --recursive
+    build:
+      commands:
+        # Build Hugo site with minification
+        - hugo --minify
+  artifacts:
+    # Output directory relative to repo root
+    baseDirectory: project/modern-tech-blog/public
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - project/modern-tech-blog/resources/**/*
