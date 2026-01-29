@@ -1,0 +1,51 @@
+baseURL = 'https://modern-tech-blog.netlify.app/'
+languageCode = 'en-us'
+title = 'Modern Tech Blog'
+theme = 'PaperMod'
+
+# Syntax highlighting with Chroma
+[markup]
+  [markup.highlight]
+    style = "github"
+    lineNos = true
+    codeFences = true
+    guessSyntax = true
+
+# Image processing
+[imaging]
+  resampleFilter = "CatmullRom"
+  quality = 75
+  anchor = "smart"
+
+[params]
+    env = "production"
+    description = "A modern tech blog for sharing technical insights and projects"
+    author = "Tech Writer"
+
+    # PaperMod specific settings
+    ShowReadingTime = true
+    ShowShareButtons = true
+    ShowPostNavLinks = true
+    ShowBreadCrumbs = true
+    ShowCodeCopyButtons = true
+    ShowFullTextinRSS = true
+
+    # Home page settings
+    homeInfoParams.Title = "Welcome to Modern Tech Blog"
+    homeInfoParams.Content = "Sharing technical insights, projects, and learning experiences in software development."
+
+# Navigation menu
+[[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 10
+
+[[menu.main]]
+    name = "Posts"
+    url = "/posts/"
+    weight = 20
+
+[[menu.main]]
+    name = "About"
+    url = "/about/"
+    weight = 30
