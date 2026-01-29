@@ -201,8 +201,10 @@
       "name": "Deployment Pipeline",
       "description": "Automated deployment from Git repository to live site with CDN hosting",
       "priority": "P0",
-      "status": "pending",
-      "passes": false,
+      "status": "verified",
+      "passes": true,
+      "verifiedAt": "2026-01-29T16:05:00Z",
+      "commit": "e0b362d",
       "implementationOrder": 5,
       "dependencies": ["F001", "F002", "F003", "F004", "F005"],
       "blockedBy": ["F001", "F002", "F003", "F004", "F005"],
@@ -217,19 +219,19 @@
       "subtasks": [
         {
           "name": "Setup GitHub repository and push code",
-          "status": "pending",
+          "status": "completed",
           "estimatedHours": 0.25,
           "planTask": "Task 6"
         },
         {
           "name": "Configure Netlify deployment",
-          "status": "pending",
+          "status": "completed",
           "estimatedHours": 0.25,
           "planTask": "Task 6"
         },
         {
           "name": "Test deployment pipeline",
-          "status": "pending",
+          "status": "completed",
           "estimatedHours": 0.25,
           "planTask": "Task 6"
         }
@@ -239,9 +241,9 @@
   ],
   "metrics": {
     "total": 6,
-    "verified": 0,
+    "verified": 1,
     "inProgress": 0,
-    "pending": 6,
-    "percentComplete": 0
+    "pending": 5,
+    "percentComplete": 16.7
   }
 }
