@@ -1,6 +1,6 @@
 [build]
-  base = "modern-tech-blog"
-  publish = "modern-tech-blog/public"
+  base = "project/modern-tech-blog"
+  publish = "project/modern-tech-blog/public"
   command = "hugo --minify"
 
 [build.environment]
