@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_click",
+      "mcp__playwright__browser_resize",
+      "mcp__playwright__browser_close",
+      "mcp__playwright__browser_console_messages",
+      "mcp__playwright__browser_take_screenshot",
+      "mcp__playwright__browser_network_requests",
+      "mcp__playwright__browser_evaluate",
+      "Read(//workshop/project/02-pre-planned/**)",
+      "Bash(timeout 10 npm run dev:*)",
+      "Skill(frontend-design:frontend-design)",
+      "Bash(xargs sed:*)",
+      "Skill(frontend-design)",
+      "Bash(npx create-astro:*)",
+      "Bash(timeout 5 npm run dev:*)",
+      "Bash(echo:*)",
+      "Bash(test:*)",
+      "Bash(aws sts:*)",
+      "Bash(aws configure:*)",
+      "Bash(aws cloudformation describe-stacks:*)",
+      "Bash(aws ec2 describe-availability-zones:*)",
+      "Bash(aws cloudformation describe-stack-resources:*)",
+      "Bash(aws cloudfront create-invalidation:*)"
+    ],
+    "deny": [
+      "Read(//workshop/01-blank/**)",
+      "Read(//workshop/03-pre-built/**)",
+      "Read(//workshop/04-troubleshooting/**)",
+      "Read(//workshop/project/01-commands/02-full/**)"
+    ],
+    "ask": []
+  }
+}

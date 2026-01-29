@@ -1,0 +1,143 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+
+// Get all published posts
+const posts = (await getCollection('blog'))
+	.filter((post) => !post.data.draft)
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Get all unique topics
+const allTopics = [...new Set(posts.flatMap(post => post.data.topics || []))].sort();
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Blog - ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+	</head>
+	<body class="bg-white">
+		<Header />
+		<main class="max-w-6xl mx-auto px-4 py-8">
+			<!-- Page Header -->
+			<section class="text-center py-12">
+				<h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+					Blog Posts
+				</h1>
+				<p class="text-xl text-gray-600 max-w-2xl mx-auto">
+					Professional insights on technology, development, and innovation.
+				</p>
+			</section>
+
+			<!-- Topic Filter (if topics exist) -->
+			{allTopics.length > 0 && (
+				<section class="mb-8">
+					<div class="flex flex-wrap justify-center gap-2 mb-6">
+						<button data-topic="all" class="topic-filter px-4 py-2 rounded-full bg-blue-600 text-white text-sm font-medium">
+							All Posts
+						</button>
+						{allTopics.map((topic) => (
+							<button
+								data-topic={topic}
+								class="topic-filter px-4 py-2 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 text-sm font-medium transition-colors"
+							>
+								{topic}
+							</button>
+						))}
+					</div>
+				</section>
+			)}
+
+			<!-- Posts Grid -->
+			<section>
+				<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+					{posts.map((post) => (
+						<article
+							class="post-card bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
+							data-topics={JSON.stringify(post.data.topics || [])}
+						>
+							<a href={`/blog/${post.id}/`} class="block">
+								{post.data.heroImage && (
+									<div class="aspect-video overflow-hidden">
+										<Image
+											width={400}
+											height={225}
+											src={post.data.heroImage}
+											alt={post.data.title}
+											class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+										/>
+									</div>
+								)}
+								<div class="p-6">
+									<div class="text-sm text-gray-500 mb-2">
+										<FormattedDate date={post.data.pubDate} />
+									</div>
+									<h2 class="text-xl font-semibold text-gray-900 mb-3 line-clamp-2">
+										{post.data.title}
+									</h2>
+									<p class="text-gray-600 line-clamp-3 mb-4">
+										{post.data.description}
+									</p>
+									{post.data.topics && post.data.topics.length > 0 && (
+										<div class="flex flex-wrap gap-2">
+											{post.data.topics.map((topic) => (
+												<span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-md">
+													{topic}
+												</span>
+											))}
+										</div>
+									)}
+								</div>
+							</a>
+						</article>
+					))}
+				</div>
+
+				{posts.length === 0 && (
+					<div class="text-center py-12">
+						<p class="text-gray-500 text-lg">No blog posts found.</p>
+					</div>
+				)}
+			</section>
+		</main>
+		<Footer />
+
+		<!-- Topic filtering script -->
+		<script>
+			document.addEventListener('DOMContentLoaded', function() {
+				const filterButtons = document.querySelectorAll('.topic-filter');
+				const postCards = document.querySelectorAll('.post-card');
+
+				filterButtons.forEach(button => {
+					button.addEventListener('click', function() {
+						const selectedTopic = this.getAttribute('data-topic');
+
+						// Update button states
+						filterButtons.forEach(btn => {
+							btn.classList.remove('bg-blue-600', 'text-white');
+							btn.classList.add('bg-gray-200', 'text-gray-700');
+						});
+						this.classList.remove('bg-gray-200', 'text-gray-700');
+						this.classList.add('bg-blue-600', 'text-white');
+
+						// Filter posts
+						postCards.forEach(card => {
+							const cardTopics = JSON.parse(card.getAttribute('data-topics') || '[]');
+
+							if (selectedTopic === 'all' || cardTopics.includes(selectedTopic)) {
+								card.style.display = 'block';
+							} else {
+								card.style.display = 'none';
+							}
+						});
+					});
+				});
+			});
+		</script>
+	</body>
+</html>

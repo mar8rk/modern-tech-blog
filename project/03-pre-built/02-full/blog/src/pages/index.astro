@@ -1,0 +1,116 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import FormattedDate from '../components/FormattedDate.astro';
+
+// Get recent blog posts
+const posts = (await getCollection('blog'))
+	.filter((post) => !post.data.draft)
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 3);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body class="bg-white">
+		<Header />
+		<main class="max-w-4xl mx-auto px-4 py-8">
+			<!-- Hero Section -->
+			<section class="text-center py-12">
+				<h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+					Personal Technology Blog
+				</h1>
+				<p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+					Sharing professional insights on technology, development, and innovation.
+					Full content ownership and control.
+				</p>
+				<div class="flex justify-center space-x-4">
+					<a
+						href="/blog"
+						class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+					>
+						Read Blog Posts
+					</a>
+					<a
+						href="/about"
+						class="border border-gray-300 hover:border-gray-400 text-gray-700 px-6 py-3 rounded-lg font-medium transition-colors"
+					>
+						About Me
+					</a>
+				</div>
+			</section>
+
+			<!-- Recent Posts Section -->
+			<section class="py-12">
+				<h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Latest Posts</h2>
+				<div class="grid md:grid-cols-3 gap-6">
+					{posts.map((post) => (
+						<article class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+							<a href={`/blog/${post.id}/`} class="block">
+								<div class="p-6">
+									<div class="text-sm text-gray-500 mb-2">
+										<FormattedDate date={post.data.pubDate} />
+									</div>
+									<h3 class="text-xl font-semibold text-gray-900 mb-3 line-clamp-2">
+										{post.data.title}
+									</h3>
+									<p class="text-gray-600 line-clamp-3">
+										{post.data.description}
+									</p>
+									{post.data.topics && post.data.topics.length > 0 && (
+										<div class="mt-4 flex flex-wrap gap-2">
+											{post.data.topics.slice(0, 3).map((topic) => (
+												<span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-md">
+													{topic}
+												</span>
+											))}
+										</div>
+									)}
+								</div>
+							</a>
+						</article>
+					))}
+				</div>
+				<div class="text-center mt-8">
+					<a
+						href="/blog"
+						class="text-blue-600 hover:text-blue-700 font-medium"
+					>
+						View all posts →
+					</a>
+				</div>
+			</section>
+
+			<!-- Features Section -->
+			<section class="py-12 bg-gray-50 -mx-4 px-4 rounded-lg">
+				<div class="max-w-3xl mx-auto text-center">
+					<h2 class="text-3xl font-bold text-gray-900 mb-8">Why This Blog?</h2>
+					<div class="grid md:grid-cols-3 gap-8">
+						<div>
+							<div class="text-2xl mb-4">🏗️</div>
+							<h3 class="text-lg font-semibold text-gray-900 mb-2">Content Ownership</h3>
+							<p class="text-gray-600">Full control over content, platform policies, and long-term availability.</p>
+						</div>
+						<div>
+							<div class="text-2xl mb-4">⚡</div>
+							<h3 class="text-lg font-semibold text-gray-900 mb-2">High Performance</h3>
+							<p class="text-gray-600">Sub-second load times with global CDN delivery and optimized assets.</p>
+						</div>
+						<div>
+							<div class="text-2xl mb-4">💡</div>
+							<h3 class="text-lg font-semibold text-gray-900 mb-2">Tech Insights</h3>
+							<p class="text-gray-600">Professional thoughts on technology, development, and industry trends.</p>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
